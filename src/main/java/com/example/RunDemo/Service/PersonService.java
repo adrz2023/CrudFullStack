@@ -1,6 +1,7 @@
 package com.example.RunDemo.Service;
 
 import com.example.RunDemo.Dto.PersonDto;
+import com.example.RunDemo.Entity.NewOrder;
 import com.example.RunDemo.Entity.Person;
 import com.example.RunDemo.Exception.PersonNotFoundException;
 import com.example.RunDemo.Repository.PersonRepository;
@@ -41,7 +42,7 @@ public class PersonService {
         Person foundPerson = person.orElseThrow(() -> new PersonNotFoundException("Invalid email or password"));
 
         return new PersonDto(
-                foundPerson.getId(),
+                foundPerson.getPersonId(),
                 foundPerson.getEmail(),
                 foundPerson.getName(),
                 foundPerson.getLocation(),
@@ -68,7 +69,11 @@ public class PersonService {
             return personRepository.save(existingPerson);
         }
 
+  public List<NewOrder> getOrdersByPersonId(int personId) {
+       Person person=personRepository.findById(personId).orElseThrow(()->new RuntimeException());
 
+       return person.getOrders();
+  }
 
     public void delete(int id) {
        personRepository.deleteById(id);

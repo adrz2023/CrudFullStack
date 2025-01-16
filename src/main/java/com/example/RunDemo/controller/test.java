@@ -1,5 +1,6 @@
 package com.example.RunDemo.controller;
 import com.example.RunDemo.Dto.PersonDto;
+import com.example.RunDemo.Entity.NewOrder;
 import com.example.RunDemo.Entity.Person;
 import com.example.RunDemo.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,12 @@ public class test {
     public ResponseEntity<Person> upadtePerson (@RequestBody Person person ,@PathVariable int id ){
        personService.updatePerson(person,id);
        return ResponseEntity.accepted().build();
+    }
+
+
+    @GetMapping("/getAllOrdersByPersonId/{id}")
+    public List<NewOrder> getAllOrdersByPersonId(@PathVariable int id) {
+        return personService.getOrdersByPersonId(id);
     }
 
 
